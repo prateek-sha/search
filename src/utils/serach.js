@@ -5,15 +5,25 @@ export const find = (previous, current) => {
 
     let finalarry = [];
 
+    if (current.trim().length  === 0 )
+     return finalarry;
+
     for(let i=0; i<prevsize; i++){
         let temp = previous[i];
         let count = 0;
         let check = 0 ;
         for(let j=0; j<temp.length; j++){
-            if(temp[j] === current[count]){
-                while( count < currsize && temp[j] === current[count]){
-                    j++;
-                    count++;
+            let str1 = temp[j].toLowerCase();
+            let str2 = current[count].toLowerCase();
+            if(str1 === str2){
+                while( count < currsize){
+                    let str1 = temp[j].toLowerCase();
+                    let str2 = current[count].toLowerCase();
+                    if(str1 === str2){
+
+                        j++;
+                        count++;
+                    }else break;
                 }
                 if(count === currsize ){
                     check = 1;

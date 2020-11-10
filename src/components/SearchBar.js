@@ -18,16 +18,27 @@ const SearchBar = (props) => {
 
     let activeClass = props.active ===  0 ? "search-bar"  : "search-bar-active";
 
+    
+
     // serach function
     const handleSearch = (e) => {
         setserachString(e.target.value);
-        props.Search(e.target.value);
-        let findresult = find(props.previousResult, e.target.value);
-        if(findresult.length > 0)  props.SaveResult(findresult);
+        if(props.previousResult.length !== 0){
+            props.Search(e.target.value);
+            let findresult = find(props.previousResult, e.target.value);
+            if(findresult.length > 0)  props.SaveResult(findresult);
+        }
     }
     //saving data in store
     const handleKeyPress = (e) => {
         if(e.key === 'Enter') {
+            props.SaveSearch(e.target.value)
+            setserachString("");
+        }
+    }
+    
+    const handleSearchButton = (e) => {
+        if(e.target.value.trim().length !== 0){
             props.SaveSearch(e.target.value)
             setserachString("");
         }
@@ -42,7 +53,7 @@ const SearchBar = (props) => {
                 <img onClick={() => setserachString("")} src={close} alt='close' className="img-close" />
                 <img src={line} alt='line' className="img-line" />
                 <img src={voice} alt='voice' className='img-voice' />
-                <img src={blueglass} alt='blueglass' className="img-blueglass" />
+                <img onClick={ handleSearchButton} src={blueglass} alt='blueglass' className="img-blueglass" />
             </div>
         </div>
     )
